@@ -61,4 +61,24 @@ initializer::init_pair(short pair, short fg, short bg)
     return *this;
 }
 
+initializer&
+initializer::cursor(int visibility)
+{
+    ::curs_set(visibility);
+    return *this;
+}
+
+initializer&
+initializer::clear()
+{
+    ::wclear(stdscr);
+    return *this;
+}
+
+initializer&
+initializer::color(int c, int r, int g, int b)
+{
+    ::init_color(c, r, g, b);
+    return *this;
+}
 } // namespace ncursespp

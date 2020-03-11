@@ -1,39 +1,46 @@
-#include "initializer.h"
-#include "window.h"
+#include "screen.h"
+
+namespace ncp = ncursespp;
 
 int main()
 {
-    ncursespp::initializer init;
-    init.cbreak(true).nl(false).echo(false).start_color();
-    init.init_pair(1, COLOR_RED, COLOR_BLACK)
-        .init_pair(2, COLOR_BLUE, COLOR_WHITE);
-    ncursespp::window win(0, 0, 0, 0);
-    win.clear();
-    win << ncursespp::color(1) 
-        << "Hello world!";
+    ScreenUI scr;
+    scr.msg1() << "Message 1" << ncp::refresh();
+    scr.msg2() << "Message 2" << ncp::refresh();
+    scr.msg3() << "Message 3" << ncp::refresh();
+    scr.more() << "*** MORE ***" << ncp::refresh();
+    scr.data() << "Data" << ncp::refresh();
+    scr.time() << "Time" << ncp::refresh();
+    scr.flag() << "Flags" << ncp::refresh();
+    scr.phase() << "Phase" << ncp::refresh();
+    scr.com() << "Com" << ncp::refresh();
+
     char dummy;
-    win >> dummy;
+    for (auto i = 0u; i < scr.level().lines(); ++i) {
+        if (i < 25) {
+            scr.level() << ncp::color(i+1);
+        }
+        scr.level() << "Level, line " << i << "\n" << ncp::color(0);
+    }
+    scr.level().refresh();
+    scr.level().getch(dummy);
 
-    win << ncursespp::move(2, 15) << "goodbye " 
-        << ncursespp::color(2)
-        << ncursespp::attr(A_BOLD | A_STANDOUT, true)
-        << "cruel" 
-        << ncursespp::attr(A_BOLD | A_STANDOUT, false)
-        << ncursespp::color(0)
-        << ncursespp::attr(A_DIM, true)
-        << " world\n";
+    scr.menu() << "1. menu\n"
+               << ncp::color(2) << "2. menu\n"
+               << ncp::color(3) << "3. menu" << ncp::refresh();
 
-    win << "This should be on the next line";
-    win << "\nType a string: ";
-    init.echo(true);
-    std::string s;
-    win >> s;
-    win << "You typed: " << s << ", and now a number: ";
+    scr.menu().getch(dummy);
+    scr.menu().clear();
+    scr.level().refresh().touch();
+    scr.menu().getch(dummy);
 
-    long long int x;
-    win >> x;
-    win << "You entered: " << x;
-    win >> dummy;
+    auto i = 0u;
+    for (auto& win : scr.showLine()) {
+        win->clear().touch().refresh();
+        *win << "Show line #" << ++i << "\n";
+        win->refresh();
+    }
+    scr.showLine()[0]->getch(dummy);
 
     return 0;
 }

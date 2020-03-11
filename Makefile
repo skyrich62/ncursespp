@@ -10,6 +10,7 @@ clean:
 
 OBJS = \
     main.o \
+    screen.o \
     initializer.o \
     window.o
 
@@ -18,6 +19,9 @@ initializer.o : initializer.cc initializer.h
 
 window.o: window.cc window.h
 	$(CXX) window.cc $(CXXFLAGS) -c
+
+screen.o: screen.cc screen.h defs.h
+	$(CXX) screen.cc $(CXXFLAGS) -c
 
 main: $(OBJS)
 	$(LXX)  $(OBJS) $(LXXFLAGS) -o main

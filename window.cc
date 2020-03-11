@@ -4,9 +4,18 @@
 
 namespace ncursespp {
 
-window::window(int rows, int cols, int row, int col)
+window::window(int lines, int cols, int top, int left)
 {
-    win_ = ::newwin(rows, cols, row, col);
+    win_ = ::newwin(lines, cols, top, left);
+    lines_ = lines ? lines : LINES;
+    cols_  = cols ? cols : COLS;
+    top_ = top;
+    left_ = left;
+}
+
+window::~window()
+{
+    delwin(win_);
 }
 
 window& window::move(int row, int col)
@@ -15,9 +24,15 @@ window& window::move(int row, int col)
     return *this;
 }
 
-window& window::attr(int attr, bool onoff)
+window& window::attr(int a, bool onoff)
 {
-    onoff ? ::wattron(win_, attr) : ::wattroff(win_, attr);
+    onoff ? ::wattron(win_, a) : ::wattroff(win_, a);
+    return *this;
+}
+
+window& window::attr(int a)
+{
+    wattrset(win_, a);
     return *this;
 }
 
@@ -33,6 +48,18 @@ window& window::refresh()
     return *this;
 }
 
+window& window::allow_scroll(bool ok)
+{
+    ::scrollok(win_, ok ? 1 : 0);
+    return *this;
+}
+
+window& window::keypad(bool onoff)
+{
+    ::keypad(win_, onoff ? 1 : 0);
+    return *this;
+}
+
 window& window::getch(char &c)
 {
     c = ::wgetch(win_);
@@ -45,22 +72,13 @@ window& window::color(short color_pair)
     return *this;
 }
 
-window&
-operator<<(window &win, long long int i)
+window& window::get_loc(int &y, int &x)
 {
-    std::ostringstream os;
-    os << i;
-    return win << os.str();
+    getyx(win_, y, x);
+    return *this;
 }
 
-window&
-operator<<(window &win, double d)
-{
-    std::ostringstream os;
-    os << d;
-    return win << os.str();
-}
-
+// Output
 window&
 operator<<(window &win, const char *str)
 {
@@ -73,6 +91,14 @@ operator<<(window &win, const std::string &str)
 {
     ::waddstr(win.win_, str.c_str());
     return win;
+}
+
+// Manipulators
+window&
+operator<<(window &win, const _Attr_Set &attrs)
+{
+     win.attr(attrs.attrs_);
+     return win;
 }
 
 window&
@@ -97,12 +123,13 @@ operator<<(window &win, const _Color_set &colors)
 }
 
 window&
-operator>>(window &win, char &c)
+operator<<(window &win, const _Refresh&)
 {
-    win.getch(c);
+    win.refresh();
     return win;
 }
 
+// Input
 window&
 operator>>(window &win, std::string &str)
 {
@@ -111,26 +138,5 @@ operator>>(window &win, std::string &str)
     str = buffer;
     return win;
 }
-
-window&
-operator>>(window &win, long long int &i)
-{
-    std::string s;
-    win >> s;
-    std::istringstream is(s);
-    is >> i;
-    return win;
-}
-
-window&
-operator>>(window &win, double &d)
-{
-    std::string s;
-    win >> s;
-    std::istringstream is(s);
-    is >> d;
-    return win;
-}
-
 
 } // namespace ncursespp

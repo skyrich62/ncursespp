@@ -82,10 +82,19 @@ struct _Pos                                 { int row_; int col_; };
 struct _Color_set                           { short color_pair_; };
 struct _Refresh                             { };
  
+/// Turn on or off some attributes or colors
 inline _Attr attr(int attr, bool onoff)     { return {attr, onoff}; }
+
+/// Set the active attributes, turning off all others.
 inline _Attr_Set attr(int attr)             { return {attr}; }
+
+/// Move the cursor.
 inline _Pos  move(int row, int col)         { return {row, col}; }
+
+/// Set the active foreground and background colors
 inline _Color_set color(short color_pair)   { return {color_pair}; }
+
+/// Refresh the window.
 inline _Refresh refresh()                   { return {}; }
 
 window& operator<< (window &win, const _Attr& attr);

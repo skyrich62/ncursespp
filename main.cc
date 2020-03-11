@@ -1,9 +1,11 @@
 #include "screen.h"
+#include <iomanip>
 
 namespace ncp = ncursespp;
 
 int main()
 {
+    COLOR_PAIR(5);
     ScreenUI scr;
     scr.msg1() << "Message 1" << ncp::refresh();
     scr.msg2() << "Message 2" << ncp::refresh();
@@ -17,10 +19,13 @@ int main()
 
     char dummy;
     for (auto i = 0u; i < scr.level().lines(); ++i) {
-        if (i < 25) {
-            scr.level() << ncp::color(i+1);
+        if (i < 26) {
+            scr.level() << ncp::color(i);
+        } else if (i == 30) {
+            scr.level() << ncp::attr(COLOR_PAIR(9) | A_BOLD);
         }
-        scr.level() << "Level, line " << i << "\n" << ncp::color(0);
+        scr.level() << std::setw(20) << "Level, line " << std::hex << i 
+                    << "\n" << ncp::attr(A_NORMAL);
     }
     scr.level().refresh();
     scr.level().getch(dummy);

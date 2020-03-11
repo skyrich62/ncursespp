@@ -10,7 +10,7 @@ ScreenUI::ScreenUI()
         .color(GREEN, 0, 1000, 0)
         .color(BLUE, 0, 0, 1000)
         .color(RED, 1000, 0, 0)
-        .init_pair(1, COLOR_BLACK, COLOR_BLACK)
+        .init_pair(1, COLOR_BLACK, COLOR_BLUE)
         .init_pair(2, COLOR_BLACK, COLOR_GREEN)
         .init_pair(3, COLOR_BLACK, COLOR_RED)
         .init_pair(4, COLOR_BLACK, COLOR_WHITE)
@@ -34,10 +34,8 @@ ScreenUI::ScreenUI()
         .init_pair(22, COLOR_YELLOW, COLOR_BLUE)
         .init_pair(23, COLOR_YELLOW, COLOR_RED)
         .init_pair(24, COLOR_YELLOW, COLOR_WHITE)
-        .init_pair(24, COLOR_YELLOW, COLOR_YELLOW);
+        .init_pair(25, COLOR_YELLOW, COLOR_GREEN);
         
-
-
     const auto ScreenLength = LINES - 6;
 
     w_msg1 = std::make_unique<Window>(1, 80, 0, 0);

@@ -45,8 +45,7 @@ int main()
 
     auto i = 0u;
     for (auto& win : scr.showLine()) {
-        (*win) << "Show line #" << ++i;
-        win->flush();
+        (*win) << "Show line #" << ++i << ncp::refresh();
     }
     scr.showLine()[0]->wgetch(dummy);
 

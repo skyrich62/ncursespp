@@ -1,7 +1,8 @@
 #include <curses.h>
 #include <string>
-#include <functional>
+//#include <functional>
 #include <sstream>
+#include <iostream>
 
 #undef getch
 
@@ -27,13 +28,6 @@ public:
         window(size.lines, size.cols, coords.line, coords.col)
     { }
    ~window();
-
-    // Output
-    friend window& operator<< (window &win, const char *str);
-    friend window& operator<< (window &win, const std::string& str);
-
-    // Input
-    friend window& operator>> (window &win, std::string& str);
 
     window& move(int row, int col);
     // turn on or off some attributes
@@ -66,6 +60,7 @@ public:
 
     WindowCoords coords() const noexcept    { return { top_, left_}; }
     WindowSize size() const noexcept        { return { lines_, cols_}; }
+    auto handle()                           { return win_; }
 
 private:
     WINDOW *win_;
@@ -74,60 +69,5 @@ private:
     int     top_;
     int     left_;
 };
-
-// Manipulators
-struct _Attr                                { int attr_; bool onoff_; };
-struct _Attr_Set                            { int attrs_; };
-struct _Pos                                 { int row_; int col_; };
-struct _Color_set                           { short color_pair_; };
-struct _Refresh                             { };
- 
-/// Turn on or off some attributes or colors
-inline _Attr attr(int attr, bool onoff)     { return {attr, onoff}; }
-
-/// Set the active attributes, turning off all others.
-inline _Attr_Set attr(int attr)             { return {attr}; }
-
-/// Move the cursor.
-inline _Pos  move(int row, int col)         { return {row, col}; }
-
-/// Set the active foreground and background colors
-inline _Color_set color(short color_pair)   { return {color_pair}; }
-
-/// Refresh the window.
-inline _Refresh refresh()                   { return {}; }
-
-window& operator<< (window &win, const _Attr& attr);
-window& operator<< (window &win, const _Attr_Set& attrs);
-window& operator<< (window &win, const _Pos& pos);
-window& operator<< (window &win, const _Color_set& color_set);
-window& operator<< (window &win, const _Refresh&);
-
-// Output
-template <typename T>
-window& operator<< (window &win, T t)
-{
-    std::ostringstream os;
-    os << t;
-    return win << os.str();
-}
-
-// Input
-
-inline window& operator>> (window &win, char &c)
-{
-    win.getch(c);
-    return win;
-}
-
-template <typename T>
-window& operator>> (window &win, T &i)
-{
-    std::string s;
-    win >> s;
-    std::istringstream is(s);
-    is >> i;
-    return win;
-}
 
 } // namespace ncursespp

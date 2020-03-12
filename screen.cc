@@ -1,5 +1,7 @@
 #include "screen.h"
 
+#if 0
+
 ScreenUI::ScreenUI()
 {
     init.echo(false).cbreak(true).clear().start_color()
@@ -72,3 +74,4 @@ ScreenUI::ScreenUI()
     init.touch();
 }
 
+#endif

@@ -1,5 +1,5 @@
 #include "initializer.h"
-#include "window.h"
+#include "wstream.h"
 #include "defs.h"
 
 #include <memory>
@@ -8,7 +8,7 @@ class ScreenUI
 {
 public:
 
-    using Window = ncursespp::window;
+    using Window = ncursespp::windowstream;
     using WinPtr = std::unique_ptr<Window>;
 
     enum Colors : char {WHITE, BROWN, YELLOW, GREY, GREEN, BLUE, RED};

@@ -12,6 +12,7 @@ OBJS = \
     main.o \
     screen.o \
     initializer.o \
+    wstream.o \
     window.o
 
 initializer.o : initializer.cc initializer.h
@@ -22,6 +23,9 @@ window.o: window.cc window.h
 
 screen.o: screen.cc screen.h defs.h
 	$(CXX) screen.cc $(CXXFLAGS) -c
+
+wstream.o: wstream.h window.h wstream.cc
+	$(CXX) wstream.cc $(CXXFLAGS) -c
 
 main: $(OBJS)
 	$(LXX)  $(OBJS) $(LXXFLAGS) -o main

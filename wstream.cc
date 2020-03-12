@@ -57,8 +57,8 @@ std::ostream&
 operator<<(std::ostream &os, const ncursespp::_Attr_Set &attrs)
 {
     os.flush();
-    auto &win = dynamic_cast<ncursespp::windowstream&>(os);
-    win.get_window().attr(attrs.attrs_);
+    auto win = dynamic_cast<ncursespp::windowstream*>(&os);
+    if (win) win->get_window().attr(attrs.attrs_);
     return os;
 }
 
@@ -66,8 +66,8 @@ std::ostream&
 operator<<(std::ostream &os, const ncursespp::_Attr &attr)
 {
     os.flush();
-    auto &win = dynamic_cast<ncursespp::windowstream&>(os);
-    win.get_window().attr(attr.attr_, attr.onoff_);
+    auto win = dynamic_cast<ncursespp::windowstream*>(&os);
+    if (win) win->get_window().attr(attr.attr_, attr.onoff_);
     return os;
 }
 
@@ -75,8 +75,8 @@ std::ostream&
 operator<<(std::ostream &os, const ncursespp::_Pos &pos)
 {
     os.flush();
-    auto &win = dynamic_cast<ncursespp::windowstream&>(os);
-    win.get_window().move(pos.row_, pos.col_);
+    auto win = dynamic_cast<ncursespp::windowstream*>(&os);
+    if (win) win->get_window().move(pos.row_, pos.col_);
     return os;
 }
 
@@ -84,8 +84,8 @@ std::ostream&
 operator<<(std::ostream &os, const ncursespp::_Color_set &colors)
 {
     os.flush();
-    auto &win = dynamic_cast<ncursespp::windowstream&>(os);
-    win.get_window().color(colors.color_pair_);
+    auto win = dynamic_cast<ncursespp::windowstream*>(&os);
+    if (win) win->get_window().color(colors.color_pair_);
     return os;
 }
 
@@ -93,8 +93,7 @@ std::ostream&
 operator<<(std::ostream &os, const ncursespp::_Refresh&)
 {
     os.flush();
-    auto &win = dynamic_cast<ncursespp::windowstream&>(os);
-    win.get_window().wrefresh();
+    auto win = dynamic_cast<ncursespp::windowstream*>(&os);
+    if (win) win->get_window().wrefresh();
     return os;
 }
-

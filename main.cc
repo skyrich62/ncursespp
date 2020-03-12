@@ -29,7 +29,7 @@ int main()
         } else if (i == 30) {
             scr.level() << ncp::attr(COLOR_PAIR(9) | A_BOLD);
         }
-        scr.level() << std::setw(20) << "Level, line " << i 
+        scr.level() << "Level, line: " << std::setw(10) << std::left << i 
                     << "\n" << ncp::attr(A_NORMAL);
     }
     scr.level().wgetch(dummy);

@@ -1,4 +1,4 @@
-CXXFLAGS = -std=c++17 -g
+CXXFLAGS = -std=c++2a -g
 CXX = /usr/local/gcc-9.2.0/bin/g++
 LXX = $(CXX)
 LXXFLAGS = -g -lncurses
@@ -14,6 +14,9 @@ OBJS = \
     initializer.o \
     wstream.o \
     window.o
+
+main.o : main.cc window.h screen.h initializer.h wstream.h
+	$(CXX) main.cc $(CXXFLAGS) -c
 
 initializer.o : initializer.cc initializer.h
 	$(CXX) initializer.cc $(CXXFLAGS) -c

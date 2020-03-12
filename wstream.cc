@@ -45,7 +45,7 @@ windowbuf::underflow()
         return *buf_type::gptr();
     }
 
-    win_.getch(*ibuf);
+    win_.wgetch(*ibuf);
     buf_type::setg(ibuf, ibuf, ibuf + 1);
     return *buf_type::gptr();
 }
@@ -56,22 +56,25 @@ windowbuf::underflow()
 std::ostream&
 operator<<(std::ostream &os, const ncursespp::_Attr_Set &attrs)
 {
-     auto &win = dynamic_cast<ncursespp::windowstream&>(os);
-     win.get_window().attr(attrs.attrs_);
-     return os;
+    os.flush();
+    auto &win = dynamic_cast<ncursespp::windowstream&>(os);
+    win.get_window().attr(attrs.attrs_);
+    return os;
 }
 
 std::ostream&
 operator<<(std::ostream &os, const ncursespp::_Attr &attr)
 {
-     auto &win = dynamic_cast<ncursespp::windowstream&>(os);
-     win.get_window().attr(attr.attr_, attr.onoff_);
-     return os;
+    os.flush();
+    auto &win = dynamic_cast<ncursespp::windowstream&>(os);
+    win.get_window().attr(attr.attr_, attr.onoff_);
+    return os;
 }
 
 std::ostream&
 operator<<(std::ostream &os, const ncursespp::_Pos &pos)
 {
+    os.flush();
     auto &win = dynamic_cast<ncursespp::windowstream&>(os);
     win.get_window().move(pos.row_, pos.col_);
     return os;
@@ -80,6 +83,7 @@ operator<<(std::ostream &os, const ncursespp::_Pos &pos)
 std::ostream&
 operator<<(std::ostream &os, const ncursespp::_Color_set &colors)
 {
+    os.flush();
     auto &win = dynamic_cast<ncursespp::windowstream&>(os);
     win.get_window().color(colors.color_pair_);
     return os;
@@ -88,9 +92,9 @@ operator<<(std::ostream &os, const ncursespp::_Color_set &colors)
 std::ostream&
 operator<<(std::ostream &os, const ncursespp::_Refresh&)
 {
+    os.flush();
     auto &win = dynamic_cast<ncursespp::windowstream&>(os);
-    win.flush();
-    win.get_window().refresh();
+    win.get_window().wrefresh();
     return os;
 }
 

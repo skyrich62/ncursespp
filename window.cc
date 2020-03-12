@@ -36,13 +36,13 @@ window& window::attr(int a)
     return *this;
 }
 
-window& window::clear()
+window& window::wclear()
 {
     ::wclear(win_);
     return *this;
 }
 
-window& window::refresh()
+window& window::wrefresh()
 {
     ::wrefresh(win_);
     return *this;
@@ -60,7 +60,7 @@ window& window::keypad(bool onoff)
     return *this;
 }
 
-window& window::getch(char &c)
+window& window::wgetch(char &c)
 {
     c = ::wgetch(win_);
     return *this;

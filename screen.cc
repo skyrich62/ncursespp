@@ -1,17 +1,14 @@
 #include "screen.h"
 
-#if 0
-
-ScreenUI::ScreenUI()
+ScreenUI::ScreenUI() :
+    init(),
+    ScreenLength(LINES - 6),
+    w_loc{1, 80, ScreenLength + 3, 0},
+    w_level{ScreenLength, 64, 3, 0},
+    w_menu{ScreenLength, 64, 3, 0},
+    w_data{2, 80, ScreenLength + 4, 0}
 {
     init.echo(false).cbreak(true).clear().start_color()
-        .color(WHITE, 800, 800, 800)
-        .color(BROWN, 644, 164, 164)
-        .color(YELLOW, 800, 800, 0)
-        .color(GREY, 200, 200, 200)
-        .color(GREEN, 0, 1000, 0)
-        .color(BLUE, 0, 0, 1000)
-        .color(RED, 1000, 0, 0)
         .init_pair(1, COLOR_BLACK, COLOR_BLUE)
         .init_pair(2, COLOR_BLACK, COLOR_GREEN)
         .init_pair(3, COLOR_BLACK, COLOR_RED)
@@ -40,38 +37,24 @@ ScreenUI::ScreenUI()
         
     const auto ScreenLength = LINES - 6;
 
-    w_msg1 = std::make_unique<Window>(1, 80, 0, 0);
-    w_msg2 = std::make_unique<Window>(1, 80, 1, 0);
-    w_msg3 = std::make_unique<Window>(1, 80, 2, 0);
-    w_more = std::make_unique<Window>(1, 15, 3, 65);
-    w_loc  = std::make_unique<Window>(1, 80, ScreenLength + 3, 0);
-    w_level= std::make_unique<Window>(ScreenLength, 64, 3, 0);
-    for (auto i = 0u; i < maxItems; ++i) {
-        w_showLine[i] = std::make_unique<Window>(1, 64, i+3, 0);
-        w_showLine[i]->allow_scroll(false).clear();
+
+    for (auto i = 0u; auto &win: w_showLine) {
+        win = std::make_unique<Window>(1, 64, ++i + 2, 0);
+        win->allow_scroll(false).wclear();
     }
-    w_menu = std::make_unique<Window>(ScreenLength, 64, 3, 0);
-    w_data = std::make_unique<Window>(2, 80, ScreenLength + 4, 0);
-    w_time = std::make_unique<Window>(2, 15, 4, 65);
-    w_phase = std::make_unique<Window>(2, 15, 6, 65);
-    w_flag = std::make_unique<Window>(4, 15, 9, 65);
-    w_com = std::make_unique<Window>(8, 15, 14, 65);
 
-
-    w_msg1->allow_scroll(false);
-    w_msg2->allow_scroll(false);
-    w_msg3->allow_scroll(false);
-    w_more->allow_scroll(false);
-    w_loc->allow_scroll(false);
-    w_level->allow_scroll(false);
-    w_menu->allow_scroll(false);
-    w_data->allow_scroll(false);
-    w_time->allow_scroll(false);
-    w_phase->allow_scroll(false);
-    w_flag->allow_scroll(false);
-    w_com->allow_scroll(false);
+    w_msg1.allow_scroll(false).wclear();
+    w_msg2.allow_scroll(false).wclear();
+    w_msg3.allow_scroll(false).wclear();
+    w_more.allow_scroll(false).wclear();
+    w_loc.allow_scroll(false).wclear();
+    w_level.allow_scroll(false).wclear();
+    w_menu.allow_scroll(false).wclear();
+    w_data.allow_scroll(false).wclear();
+    w_time.allow_scroll(false).wclear();
+    w_phase.allow_scroll(false).wclear();
+    w_flag.allow_scroll(false).wclear();
+    w_com.allow_scroll(false).wclear();
 
     init.touch();
 }
-
-#endif

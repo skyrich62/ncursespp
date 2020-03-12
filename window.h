@@ -35,15 +35,15 @@ public:
 
     // turn on some attributes and turn off all others.
     window& attr(int a);
-    window& getch(char &b);
+    window& wgetch(char &b);
     window& color(short color_pair);
     window& allow_scroll(bool ok);
     window& get_loc(int &y, int &x);
     window& keypad(bool onoff);
     window& touch()                         { ::touchwin(win_); return *this; }
 
-    window& clear();
-    window& refresh();
+    window& wclear();
+    window& wrefresh();
     window& set_border(char left, char right, char top, char bottom,
                        char topLeft, char topRight,
                        char bottomLeft, char bottomRight)
@@ -60,7 +60,7 @@ public:
 
     WindowCoords coords() const noexcept    { return { top_, left_}; }
     WindowSize size() const noexcept        { return { lines_, cols_}; }
-    auto handle()                           { return win_; }
+    WINDOW* handle()                        { return win_; }
 
 private:
     WINDOW *win_;

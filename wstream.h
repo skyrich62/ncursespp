@@ -89,8 +89,20 @@ public:
     {
     }
 
-    window& get_window()                    { return buf_.get_window(); }
-
+    auto &get_window()                      { return buf_.get_window(); }
+    auto &wgetch(char c)                    { return get_window().wgetch(c); }
+    auto &attr(int a)                       { return get_window().attr(a); }
+    auto &color(short c)                    { return get_window().color(c); }
+    auto &allow_scroll(bool ok)             { return get_window().allow_scroll(ok); }
+    auto &get_loc(int &y, int &x)           { return get_window().get_loc(y, x); }
+    auto &wclear()                          { return get_window().wclear(); }
+    auto &touch()                           { return get_window().touch(); }
+    auto &keypad(bool onoff)                { return get_window().keypad(onoff); }
+    auto &wrefresh()                        { return get_window().wrefresh(); }
+    auto lines()                            { return get_window().lines(); }
+    auto cols()                             { return get_window().cols(); }
+    auto top()                              { return get_window().top(); }
+    auto left()                             { return get_window().left(); }
 };
 
 // Manipulators

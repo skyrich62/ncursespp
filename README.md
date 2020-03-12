@@ -45,3 +45,5 @@ I started this with the idea of reviving the game "omega", which hasn't been
 touched in quite some time, was written in K&R C and is quite buggy.  I'm
 thinking of a new re-write from scratch in C++.  Doing this ncurses library
 was a good starting point.
+
+http://www.alcyone.com/max/projects/omega/

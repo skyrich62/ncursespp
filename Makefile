@@ -6,14 +6,15 @@ LXXFLAGS = -g -lncurses
 all: main
 
 clean:
-	rm -rf *.o main
+	rm -rf *.o main libwcurses.a
 
 OBJS = \
-    main.o \
-    screen.o \
     initializer.o \
     wstream.o \
     window.o
+
+libwcurses.a: $(OBJS)
+	ar -cr libwcurses.a $(OBJS) 
 
 main.o : main.cc window.h screen.h initializer.h wstream.h
 	$(CXX) main.cc $(CXXFLAGS) -c
@@ -30,5 +31,5 @@ screen.o: screen.cc screen.h defs.h
 wstream.o: wstream.h window.h wstream.cc
 	$(CXX) wstream.cc $(CXXFLAGS) -c
 
-main: $(OBJS)
-	$(LXX)  $(OBJS) $(LXXFLAGS) -o main
+main: libwcurses.a main.o screen.o
+	$(LXX)  $(OBJS) main.o screen.o $(LXXFLAGS) -L . -lwcurses -o main

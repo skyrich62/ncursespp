@@ -3,6 +3,7 @@
 A modern C++ wrapper for ncurses windows with std::ostream and std::istream functionality.
 
 # Sample
+
     #include "wstream.h"
     
     int main()
@@ -21,12 +22,12 @@ A modern C++ wrapper for ncurses windows with std::ostream and std::istream func
         // Output "Hello world!" on the window, and draw it.
         // "Hello" will be output in the default color, (usually white on black),
         // " World!" will be output in color1, (black on yellow in this case.)
-        win << "Hello" << ncursespp::color(1) << " world!" << ncursespp::wrefresh();
+        win << "Hello" << ncursespp::color(1) << " world!" << ncursespp::refresh();
         
         char dummy;
         win.wgetch(dummy);    // Wait for a keypress
         
-        return 0
+        return 0;
     }
 
 # Notes

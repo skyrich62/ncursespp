@@ -29,9 +29,10 @@ SOFTWARE.
 
 namespace ncp = ncursespp;
 
+ScreenUI scr;
+
 int main()
 {
-    ScreenUI scr;
     char dummy;
 
     scr.msg1() << "Message 1" << ncp::refresh();
@@ -47,6 +48,7 @@ int main()
     scr.com() << "Com" << ncp::refresh();
 
     scr.msg1().wgetch(dummy);
+    scr.more().wclear().wrefresh();
     for (auto i = 0u; i < scr.level().lines(); ++i) {
         if (i < 26) {
             scr.level() << ncp::color(i);

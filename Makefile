@@ -9,18 +9,14 @@ clean:
 	rm -rf *.o main libwcurses.a
 
 OBJS = \
-    initializer.o \
     wstream.o \
     window.o
 
 libwcurses.a: $(OBJS)
 	ar -cr libwcurses.a $(OBJS) 
 
-main.o : main.cc window.h screen.h initializer.h wstream.h
+main.o : main.cc window.h screen.h wstream.h
 	$(CXX) main.cc $(CXXFLAGS) -c
-
-initializer.o : initializer.cc initializer.h
-	$(CXX) initializer.cc $(CXXFLAGS) -c
 
 window.o: window.cc window.h
 	$(CXX) window.cc $(CXXFLAGS) -c

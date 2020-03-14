@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 #include <sstream>
-#include "window.h"
+#include "ncursespp/window.h"
 
 namespace ncursespp {
 

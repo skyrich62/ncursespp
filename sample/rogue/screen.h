@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "wstream.h"
+#include "ncursespp/wstream.h"
 #include "defs.h"
 
 #include <memory>

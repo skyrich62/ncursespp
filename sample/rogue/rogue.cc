@@ -29,10 +29,10 @@ SOFTWARE.
 
 namespace ncp = ncursespp;
 
-ScreenUI scr;
 
 int main()
 {
+    ScreenUI scr;
     char dummy;
 
     scr.msg1() << "Message 1" << ncp::refresh();

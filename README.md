@@ -30,14 +30,6 @@ A modern C++ wrapper for ncurses windows with std::ostream and std::istream func
         return 0;
     }
 
-# Notes
-
-There is some additional sample code with the included Makefile.
-screen.{cc,h} // Sets up a hack/rogue- like screen 
-main.cc       // Uses screen.{cc,h} to populate the various windows.
-
-None of these files are needed by the library.
-
 # Still a work in progress
 
 This is still a work in progress, but I'm far enough along for now.

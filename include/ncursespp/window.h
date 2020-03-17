@@ -80,13 +80,24 @@ struct WindowSize
 class window
 {
 public:
+    window() : win_(nullptr), lines_(0), cols_(0), top_(0), left_(0) { }
     window(int lines, int cols, int top, int left);
     window(const WindowSize &size, const WindowCoords& coords) :
         window(size.lines, size.cols, coords.line, coords.col)
     { }
    ~window();
 
+    // Create a window.  Useful if the default ctor was previously used
+    // If this window has already been created either via the other ctors,
+    // or a previous call to create, this is a no-op.
+    window& create(int lines, int cols, int top, int left);
+
+    // Create a window using WindowSize and WindowCoords.
+    window& create(const WindowSize &size, const WindowCoords &coords);
+
+    // Move the window cursor to the given coordinates.
     window& move(int row, int col);
+    
     // turn on or off some attributes
     window& attr(int a, bool onoff);
 

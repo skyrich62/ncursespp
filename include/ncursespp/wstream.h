@@ -55,6 +55,11 @@ private:
 
 
 public:
+    windowbuf() : inherited()
+    {
+        init();
+    }
+
     windowbuf(const WindowSize& size, const WindowCoords& coords) : 
         inherited(), win_(size, coords) 
     {
@@ -72,6 +77,17 @@ public:
         init();
     }
 
+    auto create(const WindowSize &size, const WindowCoords &coords)
+    {
+        win_.create(size, coords);
+        return win_.handle();
+    }
+
+    auto create(int lines, int cols, int top, int left)
+    {
+        return create({lines, cols}, {top, left});
+    }
+    
     void set_window(window &&win)           { win_ = std::move(win); }
     window& get_window()                    { return win_; }
 
@@ -95,6 +111,12 @@ protected:
     buf_type buf_;
 
 public:
+    windowstream() :
+        stream_type(&buf_),
+        buf_()
+    {
+    }
+
     windowstream(const WindowSize &size, const WindowCoords &coords) :
         stream_type(&buf_),
         buf_(size, coords)
@@ -111,6 +133,16 @@ public:
         stream_type(&buf_),
         buf_(std::move(win))
     {
+    }
+
+    bool create(const WindowSize &size, const WindowCoords &coords)
+    {
+        return buf_.create(size, coords);
+    }
+
+    bool create(int lines, int cols, int top, int left)
+    {
+        return buf_.create(lines, cols, top, left);
     }
 
     auto &get_window()                      { return buf_.get_window(); }

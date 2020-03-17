@@ -112,16 +112,29 @@ initializer::color(int c, int r, int g, int b)
 // --------- window ---------------------------------------
 window::window(int lines, int cols, int top, int left)
 {
-    win_ = ::newwin(lines, cols, top, left);
-    lines_ = lines ? lines : LINES;
-    cols_  = cols ? cols : COLS;
-    top_ = top;
-    left_ = left;
+    create(lines, cols, top, left);
 }
 
 window::~window()
 {
     delwin(win_);
+}
+
+window& window::create(int lines, int cols, int top, int left)
+{
+    if (!_win) {
+        win_ = ::newwin(lines, cols, top, left);
+        lines_ = lines ? lines : LINES;
+        cols_  = cols ? cols : COLS;
+        top_ = top;
+        left_ = left;
+    }
+    return *this;
+}
+
+window& window::create(const WindowSize &size, const WindowCoords &coords)
+{
+    return create(size.lines, size.cols, coords.line, coords.col);
 }
 
 window& window::move(int row, int col)

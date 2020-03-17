@@ -22,9 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-} // namespace ncursespp
-
-
 // This program demonstrates creating the actual ncurses window *after*
 // constructing an ncursespp::window object.
 

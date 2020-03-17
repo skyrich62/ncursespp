@@ -122,7 +122,7 @@ window::~window()
 
 window& window::create(int lines, int cols, int top, int left)
 {
-    if (!_win) {
+    if (!win_) {
         win_ = ::newwin(lines, cols, top, left);
         lines_ = lines ? lines : LINES;
         cols_  = cols ? cols : COLS;

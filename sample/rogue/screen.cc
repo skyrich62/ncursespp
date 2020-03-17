@@ -25,12 +25,7 @@ SOFTWARE.
 #include "screen.h"
 
 ScreenUI::ScreenUI() :
-    init(),
-    ScreenLength(LINES - 6),
-    w_loc{1, 80, ScreenLength + 3, 0},
-    w_level{ScreenLength, 64, 3, 0},
-    w_menu{ScreenLength, 64, 3, 0},
-    w_data{2, 80, ScreenLength + 4, 0}
+    init()
 {
     init.echo(false).cbreak(true).clear().start_color()
         .init_pair(1, COLOR_BLACK, COLOR_BLUE)
@@ -58,27 +53,38 @@ ScreenUI::ScreenUI() :
         .init_pair(23, COLOR_YELLOW, COLOR_RED)
         .init_pair(24, COLOR_YELLOW, COLOR_WHITE)
         .init_pair(25, COLOR_YELLOW, COLOR_GREEN);
-        
-    const auto ScreenLength = LINES - 6;
 
+    const int ScreenLength = LINES - 6;
 
     for (auto i = 0u; auto &win: w_showLine) {
-        win = std::make_unique<Window>(1, 64, ++i + 2, 0);
-        win->allow_scroll(false).wclear();
+        win.create(1, 64, ++i + 2, 0);
+        win.allow_scroll(false).wclear();
     }
 
-    w_msg1.allow_scroll(false).wclear();
-    w_msg2.allow_scroll(false).wclear();
-    w_msg3.allow_scroll(false).wclear();
-    w_more.allow_scroll(false).wclear();
-    w_loc.allow_scroll(false).wclear();
-    w_level.allow_scroll(false).wclear();
-    w_menu.allow_scroll(false).wclear();
-    w_data.allow_scroll(false).wclear();
-    w_time.allow_scroll(false).wclear();
-    w_phase.allow_scroll(false).wclear();
-    w_flag.allow_scroll(false).wclear();
-    w_com.allow_scroll(false).wclear();
+    msg1().create(1, 80, 0, 0);
+    msg1().allow_scroll(false).wclear();
+    msg2().create(1, 80, 1, 0);
+    msg2().allow_scroll(false).wclear();
+    msg3().create(1, 80, 2, 0);
+    msg3().allow_scroll(false).wclear();
+    more().create(1, 15, 3, 65);
+    more().allow_scroll(false).wclear();
+    loc().create(1, 80, ScreenLength + 3, 0);
+    loc().allow_scroll(false).wclear();
+    level().create(ScreenLength, 64, 3, 0);
+    level().allow_scroll(false).wclear();
+    menu().create(ScreenLength, 64, 3, 0);
+    menu().allow_scroll(false).wclear();
+    data().create(2, 80, ScreenLength + 4, 0);
+    data().allow_scroll(false).wclear();
+    time().create(2, 15, 4, 65);
+    time().allow_scroll(false).wclear();
+    phase().create(2, 15, 6, 65);
+    phase().allow_scroll(false).wclear();
+    flag().create(4, 15, 9, 65);
+    flag().allow_scroll(false).wclear();
+    com().create(8, 15, 14, 65);
+    com().allow_scroll(false).wclear();
 
     init.touch();
 }

@@ -31,7 +31,6 @@ class ScreenUI
 {
 public:
     using Window = ncursespp::windowstream;
-    using WinPtr = std::unique_ptr<Window>;
 
     ScreenUI();
    ~ScreenUI() = default;
@@ -53,18 +52,17 @@ public:
 
 private:
     ncursespp::initializer init;
-    const int ScreenLength;
-    Window w_msg1{1, 80, 0, 0};
-    Window w_msg2{1, 80, 1, 0};
-    Window w_msg3{1, 80, 2, 0};
-    Window w_more{1, 15, 3, 65};
+    Window w_msg1;
+    Window w_msg2;
+    Window w_msg3;
+    Window w_more;
     Window w_loc;
     Window w_level;
-    std::array<WinPtr, maxItems> w_showLine;
+    std::array<Window, maxItems> w_showLine;
     Window w_menu;
     Window w_data;
-    Window w_time{2, 15, 4, 65};
-    Window w_phase{2, 15, 6, 65};
-    Window w_flag{4, 15, 9, 65};
-    Window w_com{8, 15, 14, 65};
+    Window w_time;
+    Window w_phase;
+    Window w_flag;
+    Window w_com;
 };

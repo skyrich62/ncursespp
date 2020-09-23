@@ -60,14 +60,14 @@ public:
         init();
     }
 
-    windowbuf(const WindowSize& size, const WindowCoords& coords) : 
-        inherited(), win_(size, coords) 
+    windowbuf(const WindowSize& size, const WindowCoords& coords) :
+        inherited(), win_(size, coords)
     {
         init();
     }
 
-    windowbuf(int lines, int cols, int top, int left) : 
-        inherited(), win_(lines, cols, top, left) 
+    windowbuf(int lines, int cols, int top, int left) :
+        inherited(), win_(lines, cols, top, left)
     {
         init();
     }
@@ -87,7 +87,7 @@ public:
     {
         return create({lines, cols}, {top, left});
     }
-    
+
     void set_window(window &&win)           { win_ = std::move(win); }
     window& get_window()                    { return win_; }
 
@@ -129,7 +129,7 @@ public:
     {
     }
 
-    windowstream(window&& win) : 
+    windowstream(window&& win) :
         stream_type(&buf_),
         buf_(std::move(win))
     {
@@ -147,6 +147,7 @@ public:
 
     auto &get_window()                      { return buf_.get_window(); }
     auto &wgetch(char c)                    { return get_window().wgetch(c); }
+    auto &wgetch()                          { return get_window().wgetch(); }
     auto &attr(int a)                       { return get_window().attr(a); }
     auto &color(short c)                    { return get_window().color(c); }
     auto &allow_scroll(bool ok)             { return get_window().allow_scroll(ok); }
@@ -167,7 +168,7 @@ struct _Attr_Set                            { int attrs_; };
 struct _Pos                                 { int row_; int col_; };
 struct _Color_set                           { short color_pair_; };
 struct _Refresh                             { };
- 
+
 /// Turn on or off some attributes or colors
 inline _Attr attr(int attr, bool onoff)     { return {attr, onoff}; }
 

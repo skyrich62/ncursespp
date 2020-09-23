@@ -97,13 +97,14 @@ public:
 
     // Move the window cursor to the given coordinates.
     window& move(int row, int col);
-    
+
     // turn on or off some attributes
     window& attr(int a, bool onoff);
 
     // turn on some attributes and turn off all others.
     window& attr(int a);
     window& wgetch(char &b);
+    window& wgetch()                      { char dummy; return wgetch(dummy); }
     window& color(short color_pair);
     window& allow_scroll(bool ok);
     window& get_loc(int &y, int &x);

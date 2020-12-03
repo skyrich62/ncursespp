@@ -27,7 +27,7 @@ SOFTWARE.
 
 #include "screen.h"
 
-namespace ncp = ncursespp;
+namespace ncp = CompuBrite::ncursespp;
 
 
 int main()

@@ -27,7 +27,7 @@ SOFTWARE.
 
 #include "ncursespp/wstream.h"
 
-namespace ncp = ncursespp;
+namespace ncp = CompuBrite::ncursespp;
 
 int main()
 {

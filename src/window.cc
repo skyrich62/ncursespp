@@ -25,7 +25,7 @@ SOFTWARE.
 #include <sstream>
 #include "ncursespp/window.h"
 
-namespace ncursespp {
+namespace CompuBrite::ncursespp {
 
 // --------- initializer ----------------------------------
 

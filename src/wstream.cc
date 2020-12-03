@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "ncursespp/wstream.h"
 
-namespace ncursespp {
+namespace CompuBrite::ncursespp {
 
 int
 windowbuf::output_buffer()
@@ -78,46 +78,46 @@ windowbuf::underflow()
 
 // Manipulators
 std::ostream&
-operator<<(std::ostream &os, const ncursespp::_Attr_Set &attrs)
+operator<<(std::ostream &os, const CompuBrite::ncursespp::_Attr_Set &attrs)
 {
     os.flush();
-    auto win = dynamic_cast<ncursespp::windowstream*>(&os);
+    auto win = dynamic_cast<CompuBrite::ncursespp::windowstream*>(&os);
     if (win) win->get_window().attr(attrs.attrs_);
     return os;
 }
 
 std::ostream&
-operator<<(std::ostream &os, const ncursespp::_Attr &attr)
+operator<<(std::ostream &os, const CompuBrite::ncursespp::_Attr &attr)
 {
     os.flush();
-    auto win = dynamic_cast<ncursespp::windowstream*>(&os);
+    auto win = dynamic_cast<CompuBrite::ncursespp::windowstream*>(&os);
     if (win) win->get_window().attr(attr.attr_, attr.onoff_);
     return os;
 }
 
 std::ostream&
-operator<<(std::ostream &os, const ncursespp::_Pos &pos)
+operator<<(std::ostream &os, const CompuBrite::ncursespp::_Pos &pos)
 {
     os.flush();
-    auto win = dynamic_cast<ncursespp::windowstream*>(&os);
+    auto win = dynamic_cast<CompuBrite::ncursespp::windowstream*>(&os);
     if (win) win->get_window().move(pos.row_, pos.col_);
     return os;
 }
 
 std::ostream&
-operator<<(std::ostream &os, const ncursespp::_Color_set &colors)
+operator<<(std::ostream &os, const CompuBrite::ncursespp::_Color_set &colors)
 {
     os.flush();
-    auto win = dynamic_cast<ncursespp::windowstream*>(&os);
+    auto win = dynamic_cast<CompuBrite::ncursespp::windowstream*>(&os);
     if (win) win->get_window().color(colors.color_pair_);
     return os;
 }
 
 std::ostream&
-operator<<(std::ostream &os, const ncursespp::_Refresh&)
+operator<<(std::ostream &os, const CompuBrite::ncursespp::_Refresh&)
 {
     os.flush();
-    auto win = dynamic_cast<ncursespp::windowstream*>(&os);
+    auto win = dynamic_cast<CompuBrite::ncursespp::windowstream*>(&os);
     if (win) win->get_window().wrefresh();
     return os;
 }

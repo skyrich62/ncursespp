@@ -27,7 +27,7 @@ SOFTWARE.
 #include <ostream>
 #include "window.h"
 
-namespace ncursespp {
+namespace CompuBrite::ncursespp {
 
 class windowbuf : public std::basic_streambuf<char>
 {
@@ -186,8 +186,8 @@ inline _Refresh refresh()                   { return {}; }
 
 } // ncursespp
 
-std::ostream& operator<< (std::ostream &win, const ncursespp::_Attr& attr);
-std::ostream& operator<< (std::ostream &win, const ncursespp::_Attr_Set& attrs);
-std::ostream& operator<< (std::ostream &win, const ncursespp::_Pos& pos);
-std::ostream& operator<< (std::ostream &win, const ncursespp::_Color_set& color_set);
-std::ostream& operator<< (std::ostream &win, const ncursespp::_Refresh&);
+std::ostream& operator<< (std::ostream &win, const CompuBrite::ncursespp::_Attr& attr);
+std::ostream& operator<< (std::ostream &win, const CompuBrite::ncursespp::_Attr_Set& attrs);
+std::ostream& operator<< (std::ostream &win, const CompuBrite::ncursespp::_Pos& pos);
+std::ostream& operator<< (std::ostream &win, const CompuBrite::ncursespp::_Color_set& color_set);
+std::ostream& operator<< (std::ostream &win, const CompuBrite::ncursespp::_Refresh&);

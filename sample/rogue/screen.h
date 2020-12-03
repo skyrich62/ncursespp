@@ -30,7 +30,7 @@ SOFTWARE.
 class ScreenUI
 {
 public:
-    using Window = ncursespp::windowstream;
+    using Window = CompuBrite::ncursespp::windowstream;
 
     ScreenUI();
    ~ScreenUI() = default;
@@ -51,7 +51,7 @@ public:
     auto& terminal()                        { return init; }
 
 private:
-    ncursespp::initializer init;
+    CompuBrite::ncursespp::initializer init;
     Window w_msg1;
     Window w_msg2;
     Window w_msg3;

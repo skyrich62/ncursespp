@@ -1,17 +1,21 @@
-CXXFLAGS = -std=c++2a -g
-CXX = /usr/local/gcc-9.2.0/bin/g++ -I ../include
+CXX ?= g++
+CXXFLAGS = -std=c++2a -g -I ../include
 LXX = $(CXX)
 LXXFLAGS = -g -lncurses
+AR ?= ar
+LIBDIR ?= ../lib
+LIB ?= $(LIBDIR)/libwcurses.a
 
-all: libwcurses.a
+all: $(LIB)
 
 clean:
-	rm -rf *.o libwcurses.a
+	rm -rf *.o libwcurses.a $(LIB)
 
 OBJS = \
     wstream.o \
     window.o
 
-libwcurses.a: $(OBJS)
-	ar -cr libwcurses.a $(OBJS) 
-	cp libwcurses.a ../lib
+$(LIB): $(OBJS)
+	@if [ -e "$(LIBDIR)" ] && [ ! -d "$(LIBDIR)" ]; then rm -f "$(LIBDIR)"; fi
+	@mkdir -p "$(LIBDIR)"
+	$(AR) -cr $@ $(OBJS)

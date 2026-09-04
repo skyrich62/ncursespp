@@ -25,6 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#ifndef NCURSESPP_WINDOW_H_INCLUDED
+#define NCURSESPP_WINDOW_H_INCLUDED
 #include <curses.h>
 #include <string>
 #include <sstream>
@@ -225,3 +227,5 @@ private:
 };
 
 } // namespace CompuBrite::ncursespp
+
+#endif // NCURSESPP_WINDOW_H_INCLUDED

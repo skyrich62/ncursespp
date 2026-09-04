@@ -43,7 +43,10 @@ int main()
         win << "Line #" << i+1 << '\n';
     }
     win << ncp::refresh();
-    win.wgetch();
+    char c = 'a';
+    do {
+        win.wgetch(c);
+    } while (c != ' ');
     return 0;
 }
 

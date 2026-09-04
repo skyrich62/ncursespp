@@ -1,6 +1,6 @@
-CXX = /usr/local/gcc-9.2.0/bin/g++ 
+CXX ?= g++
 CXXFLAGS = -std=c++2a -I ../../include
-LXXFLAGS = -lncurses -L ../../lib -lwcurses 
+LXXFLAGS = -L ../../lib -lwcurses -lncurses
 LXX = $(CXX)
 
 all: hello

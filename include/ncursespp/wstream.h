@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#ifndef NCURSESPP_WSTREAM_H_INCLUDED
+#define NCURSESPP_WSTREAM_H_INCLUDED
 #include <streambuf>
 #include <istream>
 #include <ostream>
@@ -146,7 +148,7 @@ public:
     }
 
     auto &get_window()                      { return buf_.get_window(); }
-    auto &wgetch(char c)                    { return get_window().wgetch(c); }
+    auto &wgetch(char &c)                   { return get_window().wgetch(c); }
     auto &wgetch()                          { return get_window().wgetch(); }
     auto &attr(int a)                       { return get_window().attr(a); }
     auto &color(short c)                    { return get_window().color(c); }
@@ -191,3 +193,5 @@ std::ostream& operator<< (std::ostream &win, const CompuBrite::ncursespp::_Attr_
 std::ostream& operator<< (std::ostream &win, const CompuBrite::ncursespp::_Pos& pos);
 std::ostream& operator<< (std::ostream &win, const CompuBrite::ncursespp::_Color_set& color_set);
 std::ostream& operator<< (std::ostream &win, const CompuBrite::ncursespp::_Refresh&);
+
+#endif // NCURSESPP_WSTREAM_H_INCLUDED

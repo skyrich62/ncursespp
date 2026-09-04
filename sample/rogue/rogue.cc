@@ -46,7 +46,10 @@ int main()
     scr.phase() << "Phase" << ncp::refresh();
     scr.com() << "Com" << ncp::refresh();
 
-    scr.msg1().wgetch();
+    char c = 'a';
+    do {
+        scr.msg1().wgetch(c);
+    } while (c != ' ');
     scr.more().wclear().wrefresh();
     for (auto i = 0u; i < scr.level().lines(); ++i) {
         if (i < 26) {
@@ -57,22 +60,34 @@ int main()
         scr.level() << "Level, line: " << std::setw(10) << std::left << i
                     << "\n" << ncp::attr(A_NORMAL);
     }
-    scr.level().wgetch();
+    c = 'a';
+    do {
+        scr.level().wgetch(c);
+    } while (c != ' ');
 
     scr.menu() << "1. menu\n"
                << ncp::color(2) << "2. menu\n"
                << ncp::color(3) << "3. menu" << ncp::refresh();
 
-    scr.menu().wgetch();
+    c = 'a';
+    do {
+        scr.menu().wgetch(c);
+    } while (c != ' ');
     scr.menu().wclear();
     scr.level().wrefresh().touch();
-    scr.menu().wgetch();
+    c = 'a';
+    do {
+        scr.menu().wgetch(c);
+    } while (c != ' ');
 
     auto i = 0u;
     for (auto& win : scr.showLine()) {
         win << "Show line #" << ++i << ncp::refresh();
     }
-    scr.showLine()[0].wgetch();
+    c = 'a';
+    do {
+        scr.showLine()[0].wgetch(c);
+    } while (c != ' ');
 
     return 0;
 }

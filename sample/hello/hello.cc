@@ -46,7 +46,10 @@ int main()
     // " World!" will be output in color1, (black on yellow in this case.)
     win << "Hello" << ncpp::color(1) << " world!" << ncpp::refresh();
 
-    win.wgetch();    // Wait for a keypress
+    char c = 'a';
+    do {
+        win.wgetch(c);    // Wait for a keypress
+    } while(c != ' ');
 
     return 0;
 }
